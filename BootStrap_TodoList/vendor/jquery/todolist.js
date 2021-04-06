@@ -9,30 +9,57 @@ for (i = 0; i < myNodelist.length; i++) {
   myNodelist[i].appendChild(span);
 }
 
-// 삭제 버튼 클릭시 해당 li display none 속성 부여하기
+
+/*
+// 리스트에 체크하기
+var list = document.querySelectorAll('ul');
+
+list.addEventListener('click', function(ev) {
+  console.log("왜 내 코드가 안되지")
+  if (ev.target.tagName === 'LI') {
+    console.log("왜 내 if문이 안되지")
+    //classList.toggle 은 해당 list를 찾아 checked라는 클래스를 부여한다
+    ev.target.classList.toggle('checked');
+  }
+
+}, false);
+*/
+
+var list = document.querySelectorAll('ul');
+
+function checking(){
+  
+  let selectedul = document.getElementById("ul"+index);
+  list[index].addEventListener('click', function(ev) {
+  console.log("왜 내 코드가 안되지")
+  if (ev.target.tagName === 'LI') {
+    console.log("왜 내 if문이 안되지")
+    //classList.toggle 은 해당 list를 찾아 checked라는 클래스를 부여한다
+    ev.target.classList.toggle('checked');
+  }
+
+}, false);
+}
+
+
+
+
+// 리스트 삭제
 var close = document.getElementsByClassName("close");
 var i;
 for (i = 0; i < close.length; i++) {
   close[i].onclick = function() {
-      //this는 삭제버튼 즉 div는 해당 버튼의 부모 li
+    // 여기서 this는 close 클래스, 즉 x버튼
+    // x버튼의 부모인 li 요소에 display : none 속성을 부여한다
     var div = this.parentElement;
     div.style.display = "none";
   }
 }
 
-// 리스트에 체크하기
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-
-    //classList.toggle 은 해당 list를 찾아 checked라는 클래스를 부여한다
-    ev.target.classList.toggle('checked');
-  }
-}, false);
-
 // + 버튼 클릭시 새 리스트 생성
 function newElement(index) {
   var li = document.createElement("li");
+
 
   //리스트가 4개 이므로 배열로 간주한다
   var inputValue = document.getElementsByClassName("myInput")[index].value;
@@ -59,5 +86,4 @@ function newElement(index) {
   }
 
 }
-
 

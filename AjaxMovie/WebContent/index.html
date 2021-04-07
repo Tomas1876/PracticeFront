@@ -94,6 +94,10 @@ img {
    width: 85%;
    height: 85%;
 }
+
+.hide{
+	display:none;
+}
 </style>
 <title>MOVIE</title>
 
@@ -107,15 +111,20 @@ img {
 	
 	$(function(){
 		
+		//검색한 결과 중 영화 제목만 담을 배열
+		let movies = [];
+		
 		$("#search").click(function(){
 			
 			let movieAPI = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?"
-			
 			let data = {key:"f5eef3421c602c6cb7ea224104795888", targetDt:$("#date").val()}
+					
 			console.log(data);
 			
-			document.getElementsByClassName("title").innerHTML = $("#date").val() + " 영화 순위";
+			document.getElementById("titlearea").innerHTML = $("#date").val() + " 영화 순위";
 			
+			
+			// 비동기 방식으로 JASON 객체의 정보를 불러온다
 			$.getJSON(movieAPI,data,function(data,textStatus,xhr){
 				console.log("이하 데이터");
 				console.log(data);
@@ -131,12 +140,51 @@ img {
         					console.log(obj.rank + "/" + obj.movieNm + "/" + obj.openDt +"/"+obj.audiCnt);
         						
         						$('#table').append('<tr><td>' +obj.rank +'</td><td>' +obj.movieNm +'</td><td>'
-    								+obj.openDt +'</td><td>' +obj.audiCnt +"명" +'</td></tr>');     					      				  		
+    								+obj.openDt +'</td><td>' +obj.audiCnt +"명" +'</td></tr>');
+        						
+        						movies.push([obj.rank, obj.movieNm, obj.openDt, obj.audiCnt]);
         			});       			
 
-			});			
+			});
+
+			console.log(movies);
+			
+			$("#secondbtn").css("display","block");
+			
+			$("#btn2").click(function(){
+				
+				
+				
+				let s2 = $("#search2").val();
+				//let result = movies.find(s2);
+				console.log(s2);
+				
+				$("#table").empty();
+				$("#table").append("<tr><th>RANK</th><th>Title</th><th>Releas</th><th>Audience</th></tr>");
+				let count = 0;
+				
+				
+				$.each(movies,function(index,item){
+
+						if(movies[index][1].indexOf(s2) != -1){
+							
+							console.log(movies[index]);
+							
+							$('#table').append('<tr><td>' +movies[index][0] +'</td><td>' + movies[index][1] +'</td><td>'
+    								+ movies[index][2] +'</td><td>' + movies[index][3] +"명" +'</td></tr>');
+							count++;
+						}
+
+						
+				});
+
+				
+			});
+			
 			
 		});
+		
+
 		
 	});
 
@@ -147,12 +195,19 @@ img {
       <div class="header" style="color:white;">
          MEGABOX
       </div>
-      <div class="title"></div>
+      <div class="title">
+      	
+      </div>
    <div class="main">
-   
+   <p id="titlearea"></p>
+   <div id="buttonarea">
    <input type="text" id="date">
-      <input type="submit" id="search" value="검색">
-   
+   <input type="submit" id="search" value="검색"><br><br>
+   <div id="secondbtn" style="display:none;">
+   <input type="text" id="search2">
+   <input type="submit" id="btn2" value="재검색">
+   </div>
+   </div>
       <table id="table">
       
 

@@ -80,7 +80,7 @@
 			
 			let movieAPI = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?"
 						
-			let data = {key:"f5eef3421c602c6cb7ea224104795888", targetDt:$("#date").val().replace("-","").replace("-","")}
+			let data = {key:"bec8ebc4f49980065e35b2245e6d2b79", targetDt:$("#date").val().replace("-","").replace("-","")}
 					
 			console.log(data);
 			
@@ -98,23 +98,23 @@
 				
         			$.each(data.boxOfficeResult.dailyBoxOfficeList,function(index,obj){
        					
-        					console.log(obj.rank + "/" + obj.movieNm + "/" + obj.openDt +"/"+obj.audiCnt);
+        					//console.log(obj.rank + "/" + obj.movieNm + "/" + obj.openDt +"/"+obj.audiCnt);
         						
         						$('#table').append('<tr><td>'+ obj.rank +'</td><td>' +obj.movieNm +'</td><td>'
     								+obj.openDt +'</td><td>' +obj.audiCnt +"명" +'</td></tr>');
         						
         						movies.push([obj.rank, obj.movieNm, obj.openDt, obj.audiCnt]);
         						
-        						console.log(obj.salesShare);
+        					//	console.log(obj.salesShare);
         						number = parseInt(obj.salesShare);
         						console.log(number);
         						
         						
         						ranks.push(number);
 								
-        						console.log("랭크스");
-        						console.log(ranks);
-        						console.log(obj.salesChange);
+        						//console.log("랭크스");
+        						//console.log(ranks);
+        						//console.log(obj.salesChange);
         						
         						salcha.push(parseFloat(obj.salesChange));
         						
